@@ -55,7 +55,7 @@ const { lat, lon, name, country } = geoData[0];
 
 // Busca dados do clima usando One Call API
 const weatherRes = await fetch(
-  `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=${units}&lang=pt_br&appid=${apiKey}`
+  `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${units}&lang=pt_br&appid=${apiKey}`
 );
 if (!weatherRes.ok) throw new Error("Erro ao buscar dados do clima");
 
