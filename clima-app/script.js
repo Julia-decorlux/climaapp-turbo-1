@@ -43,22 +43,21 @@ async function fetchWeather(city, units = "metric") {
     document.body.className = "";
 
     // Busca coordenadas da cidade
-    const geoRes = await fetch(
-      `https://api.openweathermap.org/geo/3.0/direct?q=${encodeURIComponent(city)}&limit=1&appid=${apiKey}`
-    );
-    if (!geoRes.ok) throw new Error("Erro ao buscar coordenadas da cidade");
-    const geoData = await geoRes.json();
-    if (!geoData.length) throw new Error("Cidade não encontrada");
+const geoRes = await fetch(
+  `http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},${country}&limit=1&appid=${apiKey}`
+);
+if (!geoRes.ok) throw new Error("Erro ao buscar coordenadas da cidade");
 
-    const { lat, lon, name, country } = geoData[0];
+const geoData = await geoRes.json();
+if (!geoData.length) throw new Error("Cidade não encontrada");
 
-    // Busca dados do clima usando One Call API
-    const weatherRes = await fetch(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=${units}&lang=pt_br&appid=${apiKey}`
-    );
-    if (!weatherRes.ok) throw new Error("Erro ao buscar dados do clima");
+const { lat, lon, name, country } = geoData[0];
 
-    const weatherData = await weatherRes.json();
+// Busca dados do clima usando One Call API
+const weatherRes = await fetch(
+  `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=${units}&lang=pt_br&appid=${apiKey}`
+);
+if (!weatherRes.ok) throw new Error("Erro ao buscar dados do clima");
 
     showWeather(weatherData.current, name, country, units);
     showForecast(weatherData.daily, units);
