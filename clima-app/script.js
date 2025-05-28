@@ -18,8 +18,8 @@ async function getWeather() {
   try {
     // Busca coordenadas
     const geoRes = await fetch(
-      `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
-    );
+      `https://api.openweathermap.org/geo/1.0/direct?q=${encodedCity}&limit=1&appid=${apiKey}`
+       );
     const geoData = await geoRes.json();
 
     if (!geoData.length) throw new Error("Cidade não encontrada.");
